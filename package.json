@@ -1,0 +1,23 @@
+{
+  "main": "index.js",
+  "version": "1.0.0",
+  "name": "shared-element",
+  "module": "dist/shared-transition.esm.js",
+  "browser": "dist/shared-transition.umd.js",
+  "description": "Create smooth transition between individual DOM elements.",
+  "repository": "https://github.com/JoshuaAmaju/shared-element.git",
+  "author": "Joshua Amaju <princejosh0007@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^1.23.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  }
+}
