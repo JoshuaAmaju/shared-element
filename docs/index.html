@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Shared Element</title>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h2>Gallery</h2>
+        <div class="cart-badge">
+          <span class="badge">0</span>
+          <img src="./assets/cart.svg" alt="cart" width="35" />
+        </div>
+      </header>
+      <div class="container">
+        <ul class="image-grid"></ul>
+      </div>
+    </div>
+
+    <div class="details">
+      <header>
+        <div class="title-wrapper">
+          <img />
+          <h2></h2>
+        </div>
+        <button class="close">
+          <img src="./assets/close.svg" alt="close" width="10" />
+        </button>
+      </header>
+      <div class="image-large"><img /></div>
+      <div class="description">
+        <a class="goto-unsplash" target="_blank">view on unsplash</a>
+        <div class="right">
+          <div class="item">
+              <h3>Views</h3>
+              <h5 class="views"></h5>
+            </div>
+            <div class="item">
+              <h3>Downloads</h3>
+              <h5 class="downloads"></h5>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../dist/shared-element.umd.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
