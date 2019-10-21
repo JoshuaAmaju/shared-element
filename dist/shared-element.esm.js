@@ -1,4 +1,10 @@
-import { toPx, bounds } from "./utils";
+function toPx(value) {
+  return value + "px";
+}
+
+function bounds(element) {
+  return element.getBoundingClientRect();
+}
 
 function SharedElement({ to, from }) {
   var _to = to;
@@ -165,4 +171,4 @@ SharedElement.center = function(settings) {
   }
 };
 
-export default SharedElement;
+export { SharedElement };
