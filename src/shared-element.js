@@ -1,11 +1,4 @@
-import {
-  toPx,
-  lerp,
-  invlerp,
-  bounds,
-  createOverlay,
-  setTranslate
-} from "./utils";
+import { toPx, bounds, setTranslate, createOverlay } from "./utils";
 
 function SharedElement({ to, from }) {
   var anim;
