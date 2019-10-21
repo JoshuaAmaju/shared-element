@@ -1,1 +1,3 @@
-export { default as SharedElement } from "./src/shared-element";
+import SharedElement from "./src/shared-element";
+
+export default SharedElement;
