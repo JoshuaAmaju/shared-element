@@ -4,7 +4,7 @@ import resolve from "rollup-plugin-node-resolve";
 
 export default [
   {
-    input: "index.js",
+    input: "index.umd.js",
     output: {
       format: "umd",
       file: pkg.browser,
@@ -14,6 +14,6 @@ export default [
   },
   {
     input: "index.js",
-    output: [{ file: pkg.module, format: "es" }]
+    output: { name: "shared-element", file: pkg.module, format: "es" }
   }
 ];
