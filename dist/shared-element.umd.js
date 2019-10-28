@@ -73,7 +73,7 @@
     var duration = 300;
     var animation = {};
     var hasPlayed = false;
-    var withOverlay = false;
+    var withOverlay = true;
     var parent = _to.parentNode;
     var easing = "cubic-bezier(0.65, 0.05, 0.36, 1)";
 
@@ -215,7 +215,11 @@
     };
   }
 
-  Object.assign(SharedElement, { center, fadeIn, fadeOut });
+  Object.assign(SharedElement, {
+    center: center,
+    fadeIn: fadeIn,
+    fadeOut: fadeOut
+  });
 
   return SharedElement;
 

@@ -2,10 +2,34 @@ function toPx(value) {
   return value + "px";
 }
 
+function center(settings) {
+  var element = settings.element;
+  var vertical = settings.vertical;
+  var winWidth = window.innerWidth;
+  var winHeight = window.innerHeight;
+  var horizontal = settings.horizontal;
+  var rect = bounds(element);
+
+  if (horizontal) {
+    element.style.left = (winWidth - rect.width) / 2 + "px";
+  }
+
+  if (vertical) {
+    element.style.top = (winHeight - rect.height) / 2 + "px";
+  }
+}
+
 function fadeIn(element) {
   Object.assign(element.style, {
     opacity: 1,
     visibility: "visible"
+  });
+}
+
+function fadeOut(element) {
+  Object.assign(element.style, {
+    opacity: 0,
+    visibility: "hidden"
   });
 }
 
@@ -43,7 +67,7 @@ function SharedElement({ to, from }) {
   var duration = 300;
   var animation = {};
   var hasPlayed = false;
-  var withOverlay = false;
+  var withOverlay = true;
   var parent = _to.parentNode;
   var easing = "cubic-bezier(0.65, 0.05, 0.36, 1)";
 
@@ -186,3 +210,4 @@ function SharedElement({ to, from }) {
 }
 
 export default SharedElement;
+export { center, fadeIn, fadeOut };
