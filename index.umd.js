@@ -6,4 +6,5 @@ Object.assign(SharedElement, {
   fadeIn: fadeIn,
   fadeOut: fadeOut
 });
+
 export default SharedElement;
