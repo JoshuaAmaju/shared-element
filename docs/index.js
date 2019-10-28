@@ -1,82 +1,59 @@
 let details = document.querySelector(".details");
+let description = details.querySelector(".description");
 let close = details.querySelector(".close");
-let views = details.querySelector(".views");
 let badge = document.querySelector(".badge");
+let detailsTitle = description.querySelector("h3");
+let detailsAvatar = description.querySelector("img");
 let imageGrid = document.querySelector(".image-grid");
-let detailsTitle = details.querySelector("header h2");
-let detailsAvatar = details.querySelector("header img");
-let detailsDownloads = details.querySelector(".downloads");
-let gotoUnsplash = details.querySelector(".goto-unsplash");
-let detailsImage = details.querySelector(".image-large img");
+let detailsImage = details.querySelector(".image-large");
 
 let cart = [];
 
 let images = [
   {
-    downloads: 63,
-    viewsCount: "5,621",
     photographer: "Yuriy Kraykivskyy",
-    unsplashUri: "https://unsplash.com/photos/uiRbpAAYkUw",
     avatarUri:
       "https://images.unsplash.com/placeholder-avatars/extra-large.jpg?dpr=1&auto=format&fit=crop&w=64&h=64&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1570459562459-c4cf47f225b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
   },
   {
-    downloads: 27,
-    viewsCount: "3,281",
     photographer: "Paolo Chiabrando",
-    unsplashUri: "https://unsplash.com/photos/5mYye1vfr_A",
     avatarUri:
       "https://images.unsplash.com/profile-1568200294550-a272380fc671image?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1570464231174-55467f404e31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
   },
   {
-    downloads: 741,
-    viewsCount: "265,587",
     photographer: "Tolga Ahmetler",
-    unsplashUri: "https://unsplash.com/photos/pDUKndxw77A",
     avatarUri:
       "https://images.unsplash.com/profile-1570480548027-6d00204e91bfimage?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1570478087849-27590fa8d3bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
   },
   {
-    downloads: 704,
-    viewsCount: "307,371",
     photographer: "Claudiu Hegedus",
-    unsplashUri: "https://unsplash.com/photos/AolXfHNIdWA",
     avatarUri:
       "https://images.unsplash.com/profile-fb-1553278612-3a8781091df1.jpg?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1570103465173-0f1fe55b55ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
   },
   {
-    downloads: 41,
-    viewsCount: "4,210",
     photographer: "Brad Pearson",
-    unsplashUri: "https://unsplash.com/photos/qIeGdtHFExk",
     avatarUri:
       "https://images.unsplash.com/profile-fb-1564621196-ecec77bc4bd5.jpg?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1565575742704-f1de5ae984ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
   },
   {
-    downloads: 0,
-    viewsCount: "0",
     photographer: "Mirkos Tsarouchidis",
-    unsplashUri: "https://unsplash.com/photos/7J8PXjmhv5o",
     avatarUri:
       "https://images.unsplash.com/profile-1569601532688-b786f242b0f9image?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
       "https://images.unsplash.com/photo-1570526471056-2e9477ed41f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
   },
   {
-    downloads: 52,
-    viewsCount: "6,068",
     photographer: "aaron staes",
-    unsplashUri: "https://unsplash.com/photos/1_c2-9v4CII",
     avatarUri:
       "https://images.unsplash.com/profile-1558688752489-0a363a4703e7?dpr=1&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff",
     imageUri:
@@ -85,7 +62,6 @@ let images = [
 ];
 
 badge.innerHTML = cart.length;
-
 createImageGrid(images);
 
 function createImageGrid(images) {
@@ -102,14 +78,7 @@ function createImage(data, key) {
   let bottomContainer = element("div");
   let avatarNameWrapper = element("div");
 
-  let {
-    imageUri,
-    avatarUri,
-    viewsCount,
-    downloads,
-    photographer,
-    unsplashUri
-  } = data;
+  let { imageUri, avatarUri, photographer } = data;
 
   image.src = imageUri;
   avatar.src = avatarUri;
@@ -163,23 +132,24 @@ function createImage(data, key) {
   image.onclick = () => {
     detailsImage.src = imageUri;
     detailsAvatar.src = avatarUri;
-    views.textContent = viewsCount;
-    gotoUnsplash.href = unsplashUri;
     detailsTitle.textContent = photographer;
-    detailsDownloads.textContent = downloads;
+
+    const scrollLock = e => window.scroll(0, 0);
+
+    document.addEventListener("scroll", scrollLock);
 
     let sharedProps = {
       duration: 400,
       withOverlay: true
     };
 
-    let sourceImageStyle = getComputedStyle(image);
+    let srcImageStyle = getComputedStyle(image);
     let destImageStyle = getComputedStyle(detailsImage);
 
-    let sourceAvatarStyle = getComputedStyle(avatar);
+    let srcAvatarStyle = getComputedStyle(avatar);
     let destAvatarStyle = getComputedStyle(detailsAvatar);
 
-    let sourceTitleStyle = getComputedStyle(name);
+    let srcTitleStyle = getComputedStyle(name);
     let destTitleStyle = getComputedStyle(detailsTitle);
 
     details.classList.add("show");
@@ -188,33 +158,34 @@ function createImage(data, key) {
     let heroImage = new SharedElement({ from: image, to: detailsImage });
     let heroAvatar = new SharedElement({ from: avatar, to: detailsAvatar });
 
-    heroImage.fadeOut(item);
+    SharedElement.fadeOut(item);
 
     heroImage.css({
-      borderRadius: [sourceImageStyle.borderRadius, destImageStyle.borderRadius]
+      borderRadius: [srcImageStyle.borderRadius, destImageStyle.borderRadius]
     });
 
     heroTitle.css({
+      color: ["#000", "#fff"],
       whiteSpace: ["nowrap", "nowrap"],
-      fontSize: [sourceTitleStyle.fontSize, destTitleStyle.fontSize],
-      fontWeight: [sourceTitleStyle.fontWeight, destTitleStyle.fontWeight]
+      fontSize: [srcTitleStyle.fontSize, destTitleStyle.fontSize],
+      fontWeight: [srcTitleStyle.fontWeight, destTitleStyle.fontWeight]
     });
 
     heroAvatar.css({
-      borderRadius: [
-        sourceAvatarStyle.borderRadius,
-        destAvatarStyle.borderRadius
-      ]
+      borderRadius: [srcAvatarStyle.borderRadius, destAvatarStyle.borderRadius]
     });
 
     heroImage.init(sharedProps).play(() => details.classList.add("reveal"));
     heroAvatar.init(sharedProps).play();
     heroTitle.init(sharedProps).play();
 
-    close.onclick = () => {
+    close.onclick = _ => {
       details.classList.remove("show", "reveal");
-      heroImage.reverse(() => heroImage.fadeIn(item));
-      heroAvatar.reverse();
+      heroImage.reverse(() => SharedElement.fadeIn(item));
+      heroAvatar.reverse(() =>
+        document.removeEventListener("scroll", scrollLock)
+      );
+
       heroTitle.reverse();
     };
   };
@@ -257,4 +228,16 @@ function createFavouriteSvg() {
   svg.appendChild(path);
 
   return svg;
+}
+
+function lerp(x, y, a) {
+  return x * (1 - a) + y * a;
+}
+
+function invlerp(a, b, v) {
+  return clamp((v - a) / (b - a));
+}
+
+function clamp(v, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, v));
 }

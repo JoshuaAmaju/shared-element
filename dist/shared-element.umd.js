@@ -8,6 +8,37 @@
     return value + "px";
   }
 
+  function center(settings) {
+    var element = settings.element;
+    var vertical = settings.vertical;
+    var winWidth = window.innerWidth;
+    var winHeight = window.innerHeight;
+    var horizontal = settings.horizontal;
+    var rect = bounds(element);
+
+    if (horizontal) {
+      element.style.left = (winWidth - rect.width) / 2 + "px";
+    }
+
+    if (vertical) {
+      element.style.top = (winHeight - rect.height) / 2 + "px";
+    }
+  }
+
+  function fadeIn(element) {
+    Object.assign(element.style, {
+      opacity: 1,
+      visibility: "visible"
+    });
+  }
+
+  function fadeOut(element) {
+    Object.assign(element.style, {
+      opacity: 0,
+      visibility: "hidden"
+    });
+  }
+
   function bounds(element) {
     return element.getBoundingClientRect();
   }
@@ -99,7 +130,7 @@
         if (!hasPlayed) {
           let cssProps = {};
 
-          for (const key in css) {
+          for (var key in css) {
             let toProp = css[key][1];
             let fromProp = css[key][0];
 
@@ -128,18 +159,17 @@
         }
 
         clone = _to.cloneNode(true);
-        Object.assign(clone.style, animation.from);
+        Object.assign(clone.style, animation.from, { transition: "none" });
         parent.appendChild(clone);
 
         anim = clone.animate([animation.from, animation.to], {
-          fill: "both",
           delay: delay,
           easing: easing,
           duration: duration
         });
 
         anim.pause();
-        this.fadeIn(clone);
+        fadeIn(clone);
 
         return this;
       },
@@ -153,6 +183,9 @@
         };
 
         return this;
+      },
+      pause: function() {
+        if (anim) anim.pause();
       },
       reverse: function(callback, direction) {
         let toCss = css && css.to;
@@ -178,42 +211,11 @@
 
         parent = _to.parentNode;
         this.init(_settings).play(callback);
-      },
-      removeProp: function(element, prop) {
-        element.style.removeProperty(prop);
-      },
-      fadeIn: function(element) {
-        Object.assign(element.style, {
-          opacity: 1,
-          visibility: "visible"
-        });
-      },
-
-      fadeOut: function(element) {
-        Object.assign(element.style, {
-          opacity: 0,
-          visibility: "hidden"
-        });
       }
     };
   }
 
-  SharedElement.center = function(settings) {
-    var winWidth = win.innerWidth;
-    var element = settings.element;
-    var winHeight = win.innerHeight;
-    var vertical = settings.vertical;
-    var horizontal = settings.horizontal;
-    var rect = bounds(element);
-
-    if (horizontal) {
-      element.style.left = (winWidth - rect.width) / 2 + "px";
-    }
-
-    if (vertical) {
-      element.style.top = (winHeight - rect.height) / 2 + "px";
-    }
-  };
+  Object.assign(SharedElement, { center, fadeIn, fadeOut });
 
   return SharedElement;
 

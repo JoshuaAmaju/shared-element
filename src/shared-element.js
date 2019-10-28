@@ -1,4 +1,11 @@
-import { toPx, bounds, setTranslate, createOverlay } from "./utils";
+import {
+  toPx,
+  bounds,
+  fadeIn,
+  fadeOut,
+  setTranslate,
+  createOverlay
+} from "./utils";
 
 function SharedElement({ to, from }) {
   var anim;
@@ -69,7 +76,7 @@ function SharedElement({ to, from }) {
       if (!hasPlayed) {
         let cssProps = {};
 
-        for (const key in css) {
+        for (var key in css) {
           let toProp = css[key][1];
           let fromProp = css[key][0];
 
@@ -98,18 +105,17 @@ function SharedElement({ to, from }) {
       }
 
       clone = _to.cloneNode(true);
-      Object.assign(clone.style, animation.from);
+      Object.assign(clone.style, animation.from, { transition: "none" });
       parent.appendChild(clone);
 
       anim = clone.animate([animation.from, animation.to], {
-        fill: "both",
         delay: delay,
         easing: easing,
         duration: duration
       });
 
       anim.pause();
-      this.fadeIn(clone);
+      fadeIn(clone);
 
       return this;
     },
@@ -123,6 +129,9 @@ function SharedElement({ to, from }) {
       };
 
       return this;
+    },
+    pause: function() {
+      if (anim) anim.pause();
     },
     reverse: function(callback, direction) {
       let toCss = css && css.to;
@@ -148,41 +157,8 @@ function SharedElement({ to, from }) {
 
       parent = _to.parentNode;
       this.init(_settings).play(callback);
-    },
-    removeProp: function(element, prop) {
-      element.style.removeProperty(prop);
-    },
-    fadeIn: function(element) {
-      Object.assign(element.style, {
-        opacity: 1,
-        visibility: "visible"
-      });
-    },
-
-    fadeOut: function(element) {
-      Object.assign(element.style, {
-        opacity: 0,
-        visibility: "hidden"
-      });
     }
   };
 }
-
-SharedElement.center = function(settings) {
-  var winWidth = win.innerWidth;
-  var element = settings.element;
-  var winHeight = win.innerHeight;
-  var vertical = settings.vertical;
-  var horizontal = settings.horizontal;
-  var rect = bounds(element);
-
-  if (horizontal) {
-    element.style.left = (winWidth - rect.width) / 2 + "px";
-  }
-
-  if (vertical) {
-    element.style.top = (winHeight - rect.height) / 2 + "px";
-  }
-};
 
 export default SharedElement;
