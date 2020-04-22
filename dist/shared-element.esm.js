@@ -69,7 +69,7 @@ function SharedElement({ to, from }) {
   var hasPlayed = false;
   var withOverlay = true;
   var parent = _to.parentNode;
-  var easing = "cubic-bezier(0.65, 0.05, 0.36, 1)";
+  var easing = "cubic-bezier(0.86, 0, 0.07, 1)";
 
   return {
     css: function(_css) {

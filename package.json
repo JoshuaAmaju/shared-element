@@ -11,6 +11,16 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "hero",
+    "morph",
+    "animation",
+    "transition",
+    "shared element",
+    "page transition",
+    "morph transition",
+    "shared element transition"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w"
